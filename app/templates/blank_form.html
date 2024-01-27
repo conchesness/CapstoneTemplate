@@ -1,0 +1,31 @@
+<!-- this is a generic form page.  Best way to make a new form page is to 
+copy this one and then edit it. -->
+
+{% extends "base.html" %}
+
+{% block body %}
+        <h1>Form Page Title</h1>
+
+        <!--List all errors in a group at the top-->
+        {% for field in form.errors %}
+            {% for error in form.errors[field] %}
+                <div class="alert alert-error">
+                    <strong>Error!</strong>{{field}}: {{error}}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <form method=post>
+            {{ form.hidden_tag() }}
+            
+            {{ form.field.label }} <br>
+            {{ form.field(size=64) }}
+            <!--List the errors for this field-->
+            {% for error in form.field.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+
+            {{form.submit()}}
+        </form>
+        
+{% endblock %}

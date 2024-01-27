@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% if sleep %}
+    {% if sleep.sleeper == current_user %}
+        <a data-toggle="tooltip" data-placement="top" title="Delete Sleep" href="/sleep/delete/{{sleep.id}}">
+            <img width="40" class="bottom-image" src="/static/delete.png">
+        </a>
+        <a data-toggle="tooltip" data-placement="top" title="Edit Sleep" href="/sleep/edit/{{sleep.id}}">
+            <img width="40" class="bottom-image" src="/static/edit.png">
+        </a>
+    {% endif %}
+    <h1 class="display-2">{{sleep.sleeper.fname}} {{sleep.sleeper.lname}} </h1>
+    <h1 class="display-5">{{moment(sleep.sleep_date).format('MMMM Do YYYY')}}</h1>
+    <p class="fs-3 text-break">
+        {% if sleep.sleeper.image %}
+            <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(sleep.sleeper.image.read())}}">
+        {% endif %}
+            Hours: {{sleep.hours}} <br>
+            Start: {{sleep.start}} <br>
+            End: {{sleep.end}} <br>
+            Rating: {{sleep.rating}} <br>
+            How I felt: {{sleep.feel}} <br>
+            Minsutes to sleep: {{sleep.minstosleep}}
+{% else %}
+    No Sleep Here
+{% endif %}
+
+{% endblock %}

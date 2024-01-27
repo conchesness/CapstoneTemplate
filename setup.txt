@@ -1,0 +1,111 @@
+### Before we begin ###
+
+This assumes you have: 
+1) Installed Visual Studio Code. (Which is what you are using to look at this file now)
+2) installed Git (https://github.com/git-guides/install-git)
+    Git *NOT* github desktop.
+4) Installed Anaconda - https://www.anaconda.com/products/individual
+5) Setup your secrets.py file inside the utils folder with your MongoDB credentials and
+    your Google Project credentials
+
+#### Set VSC Default Terminal to cmd.exe (windows only) #####
+
+Open a new terminal in Visual Studio Code. If it is not
+already open then go to the Terminal menu and choose "New Terminal". Check in the bottom right corner to see 
+if the terminal is set to "cmd". (zsh for Mac) If it is not, pull down the 
+terminal menu which is a little down pointing arrow next to the '+' at the top right of the 
+terminal window in VSC. Choose "select default profile" then pick "Command Prompt" (or zsh for Mac)
+Then click the trash can next to any open termnal listed at the far right in the terminal 
+window pane. Then open a new terminal by going to the Terminal menu at the top of the screen.
+
+#### Install the Python Extension in VSC  ####
+
+1) Click the extensions icon on the left side of the screen. It looks like 4
+    squares.
+2) Search for and install the Python extension. It is the one created by Microsoft.
+ You can also install it from this link: https://marketplace.visualstudio.com/items?itemName=ms-python.python
+
+##### Create a Python Environment for your project #####
+1) in the terminal you should see (base) at the begining of the command prompt.
+    this means you have anaconda installed and are using the "base" environment. If you
+    don't see base,  click the view menu, then go to the Comppand Palettte then search for 
+    "python: Select Interpreter". Choose the one that is called "base".  Hopefully you should
+    now see (base)
+2) type these command to create a new environment for this project. Replace <yourProjectName> 
+    with the name of your project.
+
+    conda create --name <yourProjectName> python=3
+    conda activate <yourProjectName>
+
+3) now you want to set this to your default environment for this project. go to the View menu 
+    above and choose Command Palette...
+4) Search for 'Python: Select Interpreter' and choose the environment you just created.
+    If you don't see it click the refresh arrow in the top left of the envirnment list window.
+5) This project should now default to that environment and you should see it at the 
+    begining of the command prompt.
+
+##### Install the Python Packages #####
+##### Deep breath, this can get messy  #####
+
+# Now you need to install all of the python packages.  To do this, open the terminal in Visual Studio Code. 
+# If it is not already open then go to the Terminal menu and choose "New Terminal". 'pip' is the 
+# name of the tool that installs python packages. This next command will just check to see if you
+# have pip installed. 
+
+# MAKE SURE YOU ARE IN THE ENVIRONMENT YOU MADE FOR THIS PROJECT.
+
+# Type this command
+python -m pip
+schMac users: python3 -m pip
+
+# It should report back to you how to use pip. If it doesn't understand 'pip' as a 
+# command then you have a bigger problem. Did you install Anaconda? Did you click the checkboxes in the instructions
+# to put it in the execution path and set it as default?
+
+# On the Internet you may see instructions to use just 'pip' and not 'python -m pip'. Don't do that.
+# 'python -m pip' ('python3 -m pip' for Mac users) is better becuase it makes sure that you are 
+# using the right version of pip. 
+
+# If it is already installed lets make sure it is updated.
+
+python -m pip install --upgrade pip
+(Mac users, ugh, type: python3 -m pip install --upgrade pip)
+
+# The next command will install all the packages that are listed in the "requirements.txt" file
+
+python -m pip install -r requirements.txt
+(schMac users will type: python3 -m pip install -r requirements.txt)
+
+# if you get an error READ IT. If it says you don't have access you need to use the '--user'
+# option.  See the command below.  You can add --user to any pip command.
+# example: python -m pip install --user flask
+
+# You should see several packages being downloaded and installed.
+# You can check to see if it worked by clicking on the main.py to the left and then clicking the run button (triangle)
+# at the top right of the screen.  
+
+TEST YOUR PROGRESS: 
+1) Click the Documents icon in the top left.
+2) Find main.py, click it. You should see a play button in the top right corner.
+2a) If you don't see the play button, it is probably because you do not have the VSC Python extension 
+    installed. A small popup window might have shown up in the bottom right of your
+    VSC screen.  Click install!  If it didn't, click the extensions icon on the far 
+    left of the screen. It looks like a set of 4 squares. Search for and install 'Python'.
+3) When you click play you may get some errors.  If the error says something 
+    like "there is no module named xxxxx" then install the module:
+        python -m pip install xxxxx 
+        NOTE: if the module is named with an underscore like flask_login, when you install it,
+        use a hyphen like: flask-login.
+        (muck users: python3 not python) 
+        (if you get an access error use --user after install)
+4) run main.py again.  Keep doing this until you don't get module errors. 
+
+### Run Main.py ###
+1) Click the main.py file
+2) Click the run triangle
+3) Pray to the techno-gods
+4) Hopefully, your site will start and be avalable at https://127.0.0.1:5000
+
+You should be ready to go!
+
+Run the main.py file. 

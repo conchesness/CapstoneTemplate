@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% if blog %}
+    {{moment(blog.create_date).calendar()}} by {{blog.author.fname}} {{blog.author.lname}} 
+    {% if blog.modifydate %}
+        modified {{moment(blog.modifydate).calendar()}}
+    {% endif %}
+    <br>
+    {% if blog.author == current_user %}
+        <a data-toggle="tooltip" data-placement="top" title="Delete Blog" href="/blog/delete/{{blog.id}}">
+            <img width="40" class="bottom-image" src="/static/delete.png">
+        </a>
+        <a data-toggle="tooltip" data-placement="top" title="Edit Blog" href="/blog/edit/{{blog.id}}">
+            <img width="40" class="bottom-image" src="/static/edit.png">
+        </a>
+    {% endif %}
+
+    <h1 class="display-5">{{blog.subject}}</h1>
+    <p class="fs-3 text-break">
+        {% if blog.author.image %}
+            <img width="120" class="img-thumbnail float-start me-2" src="data:image;base64,{{base64encode(blog.author.image.read())}}">
+        {% endif %}
+            {{blog.content}} <br>
+            {{blog.tag}}
+
+    </p>
+    <a href="/comment/new/{{blog.id}}" class="btn btn-primary btn-sm" role="button">New Comment</a>
+
+    {% if comments %}
+    <h1 class="display-5">Comments</h1>
+    {% for comment in comments %}
+        {% if current_user == comment.author %}
+            <a href="/comment/delete/{{comment.id}}"><img width="20" src="/static/delete.png"></a> 
+            <a href="/comment/edit/{{comment.id}}"><img width="20" src="/static/edit.png"></a>
+        {% endif %}
+        {{moment(comment.create_date).calendar()}} {{comment.author.username}} 
+        {% if comment.modifydate %}
+            modified {{moment(comment.modifydate).calendar()}}
+        {% endif %}
+        <br>
+        <p class="fs-3">
+            {{comment.content}}
+        </p>
+    {% endfor %}
+    {% else %}
+        <h1 class="display-5">No Comments</h1>
+    {% endif %}
+{% else %}
+
+{% endif %}
+
+{% endblock %}

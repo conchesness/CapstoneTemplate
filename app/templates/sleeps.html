@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-4">
+        <h1 class="display-1">All Blogs</h1>
+    </div>
+    <div class="col">
+        <a href="/sleep/new" class="btn btn-primary btn-sm mt-5" role="button">New Sleep</a>
+        <a href="/sleepgraph" class="btn btn-primary btn-sm mt-5" role="button">Graph it!</a>
+    </div>
+</div>
+
+{% if sleeps %}
+    {% for sleep in sleeps %}
+        <div class="row border-bottom">
+
+        <div clas="col">
+                <a data-toggle="tooltip" data-placement="top" title="Delete Sleep" href="/sleep/delete/{{sleep.id}}">
+                    <img width="20" class="bottom-image" src="/static/delete.png">
+                </a>
+                <a data-toggle="tooltip" data-placement="top" title="Edit Sleep" href="/sleep/edit/{{sleep.id}}">
+                    <img width="20" class="bottom-image" src="/static/edit.png">
+                </a>
+        </div>
+
+            <div class="col-2">
+                {% if loop.index == 1 %}
+                <h3>Date</h3>
+                {% endif %}
+
+                <a href="/sleep/{{sleep.id}}">
+                    {{moment(sleep.sleep_date).format('MMMM Do YYYY')}}
+                </a>
+            </div>
+            <div class="col-2">
+                {% if loop.index == 1 %}
+                <h3>Sleeper</h3>
+                {% endif %}
+                {{sleep.sleeper.fname}} {{sleep.sleeper.lname}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3>Hours</h3>
+                {% endif %}
+                {{sleep.hours}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3>Start</h3>
+                {% endif %}
+                {{sleep.start}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3>End</h3>
+                {% endif %}
+                {{sleep.end}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3>Rating</h3>
+                {% endif %}
+                {{sleep.rating}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3>Feel</h3>
+                {% endif %}
+                {{sleep.feel}}
+            </div>
+            <div class="col">
+                {% if loop.index == 1 %}
+                    <h3>Mins to Sleep</h3>
+                {% endif %}
+                {{sleep.minstosleep}}
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <h1>No Sleeps</h1>
+{% endif %}
+
+{% endblock %}

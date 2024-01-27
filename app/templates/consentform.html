@@ -1,0 +1,59 @@
+<!-- this is a generic form page.  Best way to make a new form page is to 
+copy this one and then edit it. -->
+
+{% extends "base.html" %}
+
+{% block body %}
+        <h1>Consent Form</h1>
+    
+
+        <!--List all errors in a group at the top-->
+        {% for field in form.errors %}
+            {% for error in form.errors[field] %}
+                <div class="alert alert-error">
+                    <strong>Error!</strong>{{field}}: {{error}}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <form method=post>
+            {{ form.hidden_tag() }}
+            <p>
+                {{ form.consent.label }} <br>
+                {% for field in form.consent %}
+                    {{ field }}
+                    {{ field.label }}
+                {% endfor %}
+                <!--List the errors for this field-->
+                {% for error in form.consent.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.adult_fname.label }} <br>
+                {{ form.adult_fname() }}
+                <!--List the errors for this field-->
+                {% for error in form.adult_fname.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.adult_lname.label }} <br>
+                {{ form.adult_lname() }}
+                <!--List the errors for this field-->
+                {% for error in form.adult_lname.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ form.adult_email.label }} <br>
+                {{ form.adult_email() }}
+                <!--List the errors for this field-->
+                {% for error in form.adult_email.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            {{form.submit()}}
+        </form>
+        
+{% endblock %}

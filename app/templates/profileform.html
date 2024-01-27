@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <h1>Register</h1>
+    <!--enctype is needed to upload files -->
+    <form action="" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.fname.label }}<br>
+            {{ form.fname(size=64) }}<br>
+            {% for error in form.fname.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.lname.label }}<br>
+            {{ form.lname() }}<br>
+            {% for error in form.lname.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.image.label }}<br>
+            {% if current_user.image %}
+                <img class="img-thumbnail" width="100" src="data:image;base64,{{base64encode(current_user.image.read())}}"> <br>
+            {% else %}
+                <img class="img-thumbnail" width = "100" src="/static/bdog.png">
+            {% endif %} <br>
+            {{ form.image() }}<br>
+            {% for error in form.image.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+{% endblock %}

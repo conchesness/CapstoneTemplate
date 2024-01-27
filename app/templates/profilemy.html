@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<h1 class="display-1">
+    My Profile
+    <a href="/myprofile/edit">
+        <img width="40" src="/static/edit.png">
+    </a>
+</h1>
+<div class="row">
+    <div class="col-2">
+        {% if current_user.image %}
+            <img class="img-thumbnail img-fluid" src="data:image;base64,{{base64encode(current_user.image.read())}}"> <br>
+        {% else %}
+            <img class="img-thumbnail" width = "100" src="/static/bdog.png">
+        {% endif %} 
+    </div>
+    <div class="col display-5">
+        {% if current_user.fname and current_user.lname %}
+            Name: {{current_user.fname}}  {{current_user.lname}} <br>
+        {% else %}
+            Google User Name: {{current_user.gname}} <br>
+        {% endif %}
+        Email: {{current_user.email}} <br>
+        <hr>
+        <a href="/consent">
+            <img width="40" src="/static/edit.png">
+        </a>
+        <h1 class="display-1">Send Sleep Info</h1>
+        Consent to send sleep info: {{current_user.consent}} <br>
+        Send to: {{current_user.adult_fname}} {{current_user.adult_lname}} <br>
+        Email: {{current_user.adult_email}}
+    </div>
+</div>
+<br>
+
+
+
+{% endblock %}

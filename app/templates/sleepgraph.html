@@ -1,0 +1,12 @@
+<!-- This is a blank template.  You can copy this to make a new template page. -->
+
+{% extends 'base.html' %}
+
+{% block body %}
+
+{% for image in images %}
+<img src="/static/graphs/{{image}}">
+<br> <br> <br> <br>
+{% endfor %}
+
+{% endblock %}
